@@ -16,7 +16,7 @@ def is_valid(path, spring, damage_index, damage):
 
 def add_path(new_paths, indexes, path, multiplicity, spring):
     if is_valid(path, spring, indexes[1], damage):
-        if p[1] == len(spring) and p[2] == len(damage):
+        if indexes[0] == len(spring) and indexes[1] == len(damage):
             return multiplicity
 
         existing_path = new_paths.get(indexes, None)
@@ -42,12 +42,14 @@ def add_block(new_paths, indexes, p, spring, damage):
 
 
 total = 0
-test = True
+test = False
 with open('../test_input_files/day12test.txt' if test else '../input_files/day12input.txt', 'r') as f:
     for line in f:
         spring, damage = line.rstrip().split()
         spring = list('?'.join([spring] * 5))
+        # spring = list(spring)
         damage = [int(x) for x in damage.split(',')] * 5
+        # damage = [int(x) for x in damage.split(',')]
         total_damaged = sum(damage)
         total_already_damaged = spring.count('#')
         to_change = total_damaged - total_already_damaged
@@ -70,7 +72,7 @@ with open('../test_input_files/day12test.txt' if test else '../input_files/day12
                     case '#':
                         completed_paths += add_block(new_paths, indexes, p, spring, damage)
             paths = new_paths
-            print(paths)
+            # print(paths)
         print(completed_paths)
         total += completed_paths
 print(total)
