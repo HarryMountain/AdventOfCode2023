@@ -13,7 +13,7 @@ class Direction(Enum):
 directions = {Direction.Up: (-1, 0), Direction.Left: (0, -1), Direction.Down: (1, 0), Direction.Right: (0, 1)}
 directions_to_slope = {'^': Direction.Up, '>': Direction.Right, '<': Direction.Left, 'v': Direction.Down}
 grid = []
-test = False
+test = True
 with open('../test_input_files/day23test.txt' if test else '../input_files/day23input.txt', 'r') as f:
     for line in f:
         grid.append(list(line.rstrip()))

@@ -21,7 +21,7 @@ scores = []
 finished = []
 grid = np.array(grid)
 FINISH = (len(grid) - 1, len(grid[0]) - 1)
-paths = [[(0, 0), Direction.Right, 0, 0, [(0, 0)]]]
+paths = [[(0, 0), Direction.Right, 0, 0, [(0, 0)], []]]
 seen = {(0, 0, Direction.Right, 0): 0}
 index = 0
 while len(paths) > 0:
@@ -34,19 +34,19 @@ while len(paths) > 0:
                 if path[1] == direction:
                     if path[2] < 10:
                         if new_pos == FINISH:
-                            scores.append(path[3] + grid[new_pos])
-                            finished.append(path[4])
+                            if path[2] + 1 > 3:
+                                scores.append(path[3] + grid[new_pos])
+                                finished.append(path[4])
                         else:
                             new_paths.append(
-                                [new_pos, direction, path[2] + 1, path[3] + grid[new_pos], path[4] + [new_pos]])
+                                [new_pos, direction, path[2] + 1, path[3] + grid[new_pos], path[4] + [new_pos], path[5] + [grid[new_pos]]])
 
                 else:
                     if path[2] > 3:
                         if new_pos == FINISH:
-                            scores.append(path[3] + grid[new_pos])
-                            finished.append(path[4])
+                            pass
                         else:
-                            new_paths.append([new_pos, direction, 1, path[3] + grid[new_pos], path[4] + [new_pos]])
+                            new_paths.append([new_pos, direction, 1, path[3] + grid[new_pos], path[4] + [new_pos], path[5] + [grid[new_pos]]])
     paths = []
     for np in new_paths:
         best_current_score = seen.get((np[0][0], np[0][1], np[1], np[2]), -1)
